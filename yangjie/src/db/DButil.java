@@ -1,5 +1,7 @@
 package db;
 
+import util.L;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -17,13 +19,13 @@ public class DButil {
             Class.forName("com.mysql.jdbc.Driver");
             // 2. 获得数据库的连接
             conn = DriverManager.getConnection(URL, USER, PASSWORD);
-            System.out.print("数据库连接成功！");
+            L.d("数据库连接成功！");
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
-            System.out.print("数据库连接失败！"+e.getMessage());
+            L.d("数据库连接失败！"+e.getMessage());
         } catch (SQLException e) {
             e.printStackTrace();
-            System.out.print("数据库连接失败！"+e.getMessage());
+            L.d("数据库连接失败！"+e.getMessage());
         }
     }
 
