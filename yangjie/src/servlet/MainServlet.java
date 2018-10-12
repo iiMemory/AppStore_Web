@@ -22,31 +22,7 @@ public class MainServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String action = request.getParameter("action");
         if (action.equals("getAppList")) {
-            L.d("开始执行getAppList...");
-            // 从数据库获取app信息
-            Connection conn = DButil.getConnection();
-            try {
-                String sql = "select * from appInfo";
-                PreparedStatement ptmt =  (PreparedStatement) conn.prepareStatement(sql);
-                ResultSet rs = ptmt.executeQuery();
-                List<AppBean> list = new ArrayList<>();
-                AppBean bean = null;
-                while(rs.next()) {
-                    bean = new AppBean();
-                    bean.setPackageId(rs.getString("packageId"));
-                    bean.setName(rs.getString("name"));
-                    bean.setDownloadUrl(rs.getString("downloadUrl"));
-                    bean.setLogoUrl(rs.getString("logoUrl"));
-                    list.add(bean);
-                }
-                // 对象转json
-                String json = JSON.toJSONString(list);
-                response.getWriter().print(json);
-                L.d("执行getAppList...成功");
-            } catch (SQLException e) {
-                e.printStackTrace();
-                L.d("执行getAppList...失败："+e.getMessage());
-            }
+            getAppList(response);
 //            // todo 模拟数据
 //            List<AppBean> list = new ArrayList<>();
 //            for (int i = 0; i < 8; i++) {
@@ -57,6 +33,35 @@ public class MainServlet extends HttpServlet {
 //            // 对象转json
 //            String json = JSON.toJSONString(list);
 //            response.getWriter().print(json);
+        }
+    }
+
+    // 从数据库获取app信息
+    private void getAppList(HttpServletResponse response) throws IOException {
+        L.d("开始执行getAppList...");
+        // 从数据库获取app信息
+        Connection conn = DButil.getConnection();
+        try {
+            String sql = "select * from appInfo";
+            PreparedStatement ptmt =  (PreparedStatement) conn.prepareStatement(sql);
+            ResultSet rs = ptmt.executeQuery();
+            List<AppBean> list = new ArrayList<>();
+            AppBean bean = null;
+            while(rs.next()) {
+                bean = new AppBean();
+                bean.setPackageId(rs.getString("packageId"));
+                bean.setName(rs.getString("name"));
+                bean.setDownloadUrl(rs.getString("downloadUrl"));
+                bean.setLogoUrl(rs.getString("logoUrl"));
+                list.add(bean);
+            }
+            // 对象转json
+            String json = JSON.toJSONString(list);
+            response.getWriter().print(json);
+            L.d("执行getAppList...成功");
+        } catch (SQLException e) {
+            e.printStackTrace();
+            L.d("执行getAppList...失败："+e.getMessage());
         }
     }
 
