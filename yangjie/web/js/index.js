@@ -24,7 +24,7 @@ function loadAppList() {
                 if (i-1%column == 0) {
                     str += "<tr>";
                 }
-                str += "<td class='item_app'></td>";
+                str += "<td class='item_app' onclick='clickAppItem()'></td>";
 
                 if (i%column == 0) {
                     str += "</tr>";
@@ -33,4 +33,9 @@ function loadAppList() {
             $table_tbody.html(str);
         }
     });
+}
+
+// 点击app列表，跳转到详情界面
+function clickAppItem() {
+    window.location.href='../web/AppInfo.jsp';
 }

@@ -39,4 +39,5 @@ body,html,div {
     background-repeat: no-repeat;
     /*图片自适应*/
     background-size: contain;
+    cursor:pointer;
 }
