@@ -24,7 +24,8 @@ function loadAppList() {
                 if (i-1%column == 0) {
                     str += "<tr>";
                 }
-                str += "<td class='item_app' onclick='clickAppItem()'></td>";
+                var dd = data[i-1].packageId;
+                str += "<td class='item_app' onclick=clickAppItem("+dd+")></td>";
 
                 if (i%column == 0) {
                     str += "</tr>";
@@ -36,6 +37,6 @@ function loadAppList() {
 }
 
 // 点击app列表，跳转到详情界面
-function clickAppItem() {
-    window.location.href='../web/AppInfo.jsp';
+function clickAppItem(param) {
+    window.location.href='../web/appInfo.html?packageId='+param;
 }
