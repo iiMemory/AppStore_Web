@@ -1,6 +1,7 @@
 package servlet;
 
 import bean.AppBean;
+import bean.CommentBean;
 import com.alibaba.fastjson.JSON;
 import db.DButil;
 import util.L;
@@ -20,8 +21,16 @@ import java.util.List;
 public class AppInfoServlet extends HttpServlet {
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String packageId = request.getParameter("packageId");
-        getAppInfo(packageId, response);
+        String action = request.getParameter("action");
+        if (action.equals("getAppInfo")) {
+            String packageId = request.getParameter("packageId");
+            getAppInfo(packageId, response);
+        } else if (action.equals("getCommentList")) {
+            String packageId = request.getParameter("packageId");
+            String page = request.getParameter("page");
+            getCommentList(packageId, Integer.parseInt(page), response);
+        }
+
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -54,4 +63,35 @@ public class AppInfoServlet extends HttpServlet {
             L.d("执行getAppInfo...失败："+e.getMessage());
         }
     }
+
+    // 从数据库获取评论信息
+    private void getCommentList(String packageId, int page, HttpServletResponse response) throws IOException {
+        L.d("开始执行getCommentList...");
+        // 从数据库获取app信息
+        Connection conn = DButil.getConnection();
+        try {
+            String sql = "select * from comment where packageId = "+packageId +" limit "+(page-1)*10+",10" ;
+            PreparedStatement ptmt =  (PreparedStatement) conn.prepareStatement(sql);
+            ResultSet rs = ptmt.executeQuery();
+            List<CommentBean> list = new ArrayList<>(10);
+            while (rs.next()) {
+                CommentBean bean = null;
+                bean = new CommentBean();
+                bean.setId(rs.getString("id"));
+                bean.setPackageId(rs.getString("packageId"));
+                bean.setComment(rs.getString("comment"));
+                bean.setUserId(rs.getString("userId"));
+                bean.setTime(rs.getString("time"));
+                list.add(bean);
+            }
+            // 对象转json
+            String json = JSON.toJSONString(list);
+            response.getWriter().print(json);
+            L.d("执行getCommentList...成功");
+        } catch (SQLException e) {
+            e.printStackTrace();
+            L.d("执行getCommentList...失败："+e.getMessage());
+        }
+    }
+
 }
