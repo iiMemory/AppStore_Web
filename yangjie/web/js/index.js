@@ -1,5 +1,5 @@
 function login() {
-    alert("login");
+    window.location.href='../web/login.html';
 }
 
 // 获取app列表信息
