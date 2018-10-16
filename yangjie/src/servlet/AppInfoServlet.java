@@ -11,10 +11,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -29,6 +26,11 @@ public class AppInfoServlet extends HttpServlet {
             String packageId = request.getParameter("packageId");
             String page = request.getParameter("page");
             getCommentList(packageId, Integer.parseInt(page), response);
+        } else if (action.equals("commitComment")) {
+            String packageId = request.getParameter("packageId");
+            String comment = request.getParameter("comment");
+            String userId = "123";// todo 暂时写死
+            commitComment(userId, packageId, comment, response);
         }
 
     }
@@ -91,6 +93,28 @@ public class AppInfoServlet extends HttpServlet {
         } catch (SQLException e) {
             e.printStackTrace();
             L.d("执行getCommentList...失败："+e.getMessage());
+        }
+    }
+
+    // 提交评论
+    private void commitComment(String userId, String packageId, String comment, HttpServletResponse response) throws IOException {
+        L.d("开始执行commitComment...");
+        // 从数据库获取app信息
+        Connection conn = DButil.getConnection();
+        try {
+            String sql = "insert into comment(userId, packageId, comment, time) values(?,?,?,?) ";
+            PreparedStatement ptmt =  (PreparedStatement) conn.prepareStatement(sql);
+            ptmt.setString(1, userId);
+            ptmt.setString(2, packageId);
+            ptmt.setString(3, comment);
+            ptmt.setDate(4, new Date(System.currentTimeMillis()));
+            ptmt.execute();
+            response.getWriter().print("ok");
+            L.d("执行commitComment...成功");
+        } catch (SQLException e) {
+            e.printStackTrace();
+            response.getWriter().print(e.getMessage());
+            L.d("执行commitComment...失败："+e.getMessage());
         }
     }
 

@@ -24,7 +24,6 @@ body,html,div {
 }
 
 #comment_list {
-    height: 400px;
     /*background: beige;*/
     border:1px solid #000;
     margin: 20px;
@@ -49,4 +48,23 @@ body,html,div {
 
 .comment_msg {
     margin-top: 20px;
+}
+
+#input_comment {
+    height: 300px;
+    display: flex;
+    flex-direction: row;
+    margin-left: 20px;
+    align-items: flex-end;
+}
+
+#text_comment {
+    width: 600px;
+    height: 300px;
+}
+
+#commit {
+    margin-left: 20px;
+    width: 80px;
+    height: 40px;
 }

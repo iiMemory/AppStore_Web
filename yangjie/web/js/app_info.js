@@ -26,6 +26,7 @@ function getAppInfo() {
         dataType:'json',    //返回的数据格式：json/xml/html/script/jsonp/text
         success:function(data,textStatus,jqXHR) {//data是成功后，接收的返回值
             var app_info_data = $("#app_info_data");
+            app_info_data.html("");
             // json转实体
             var str = "";
             var packageId = data.packageId;
@@ -61,6 +62,7 @@ function getCommentList() {
         dataType:'json',    //返回的数据格式：json/xml/html/script/jsonp/text
         success:function(data,textStatus,jqXHR) {//data是成功后，接收的返回值
             var comment_list = $("#comment_list");
+            comment_list.html("");
             // json转实体
             var length = data.length;
             var str = "";
@@ -85,4 +87,33 @@ function getCommentList() {
             comment_list.html(str);
         }
     });
+}
+
+// 提交评论
+function commitComment() {
+    var url = location.href;
+    var d = url.indexOf("=");
+    var packageId = url.substring(d+1, url.length);
+
+    var comment = $("#text_comment").val();
+    $.ajax({
+        url:'AppInfoServlet',
+        type:'POST', //GET
+        async:true,    //或false,是否异步
+        timeout:5000,    //超时时间
+        data: {
+            comment:comment,
+            action:"commitComment",
+            packageId:packageId
+        },
+        dataType:'text',    //返回的数据格式：json/xml/html/script/jsonp/text
+        success:function(data,textStatus,jqXHR) {//data是成功后，接收的返回值
+          alert(data);
+          loadInfo();
+        },
+        error:function (data,textStatus,jqXHR) {
+            alert(data);
+        }
+    });
+
 }
