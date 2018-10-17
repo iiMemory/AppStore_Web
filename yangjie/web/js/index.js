@@ -2,6 +2,10 @@ function login() {
     window.location.href='../web/login.html';
 }
 
+function load() {
+    loadAppList();
+}
+
 // 获取app列表信息
 function loadAppList() {
     $.ajax({

@@ -13,7 +13,12 @@ function login() {
         },
         dataType:'text',    //返回的数据格式：json/xml/html/script/jsonp/text
         success:function(data,textStatus,jqXHR) {//data是成功后，接收的返回值
-            alert(data);
+            if (data == "200") {
+                window.location.href='../web/index.html';
+            } else {
+                alert(data);
+            }
+
         },
         error:function (data,textStatus,jqXHR) {
             // todo 如何才能执行error的回调呢？？

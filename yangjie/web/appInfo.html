@@ -2,15 +2,16 @@
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <link rel="stylesheet" href="css/index.css" media="screen" type="text/css" />
     <script type="text/javascript" src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
     <script type="text/javascript" src="js/app_info.js"></script>
     <link rel="stylesheet" href="css/app_info.css" media="screen" type="text/css" />
-
-    <title>Title</title>
+    <script type="text/javascript" src="js/user.js"></script>
+    <link rel="stylesheet" href="css/user.css" media="screen" type="text/css" />
+    <title>应用</title>
 </head>
-<body onload=loadInfo()>
+<body onload="loadInfo(),loadUser()">
 <div id="navigation">
+    <div id="div_user"><span id="user"></span><button type="button" onclick="exit()">退出</button></div>
     <button type="button" id="login" onclick="login()">登录</button>
 </div>
 <div id="app_info">

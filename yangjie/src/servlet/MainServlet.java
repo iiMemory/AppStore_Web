@@ -1,6 +1,7 @@
 package servlet;
 
 import bean.AppBean;
+import bean.User;
 import com.alibaba.fastjson.JSON;
 import db.DButil;
 import util.L;
