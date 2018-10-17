@@ -2,8 +2,11 @@ package servlet;
 
 import bean.AppBean;
 import bean.CommentBean;
+import bean.User;
 import com.alibaba.fastjson.JSON;
 import db.DButil;
+import listener.CallBack;
+import util.Constant;
 import util.L;
 
 import javax.servlet.ServletException;
@@ -18,6 +21,9 @@ import java.util.List;
 public class AppInfoServlet extends HttpServlet {
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        response.setContentType("text/html;charset=GBK");
+        response.setContentType("text/html");
+
         String action = request.getParameter("action");
         if (action.equals("getAppInfo")) {
             String packageId = request.getParameter("packageId");
@@ -27,10 +33,16 @@ public class AppInfoServlet extends HttpServlet {
             String page = request.getParameter("page");
             getCommentList(packageId, Integer.parseInt(page), response);
         } else if (action.equals("commitComment")) {
-            String packageId = request.getParameter("packageId");
-            String comment = request.getParameter("comment");
-            String userId = "123";// todo 暂时写死
-            commitComment(userId, packageId, comment, response);
+            User user = (User) request.getSession().getAttribute("user");
+            if (user != null) {
+                String packageId = request.getParameter("packageId");
+                String comment = request.getParameter("comment");
+                String userName = user.getName();
+                commitComment(userName, packageId, comment, response);
+            } else {
+                String json = JSON.toJSONString(new CallBack(Constant.failureCode, "请登录！"));
+                response.getWriter().print(json);
+            }
         }
 
     }
@@ -82,7 +94,7 @@ public class AppInfoServlet extends HttpServlet {
                 bean.setId(rs.getString("id"));
                 bean.setPackageId(rs.getString("packageId"));
                 bean.setComment(rs.getString("comment"));
-                bean.setUserId(rs.getString("userId"));
+                bean.setUserName(rs.getString("userName"));
                 bean.setTime(rs.getString("time"));
                 list.add(bean);
             }
@@ -97,23 +109,26 @@ public class AppInfoServlet extends HttpServlet {
     }
 
     // 提交评论
-    private void commitComment(String userId, String packageId, String comment, HttpServletResponse response) throws IOException {
+    private void commitComment(String userName, String packageId, String comment, HttpServletResponse response) throws IOException {
         L.d("开始执行commitComment...");
         // 从数据库获取app信息
         Connection conn = DButil.getConnection();
         try {
-            String sql = "insert into comment(userId, packageId, comment, time) values(?,?,?,?) ";
+            String sql = "insert into comment(userName, packageId, comment, time) values(?,?,?,?) ";
             PreparedStatement ptmt =  (PreparedStatement) conn.prepareStatement(sql);
-            ptmt.setString(1, userId);
+            ptmt.setString(1, userName);
             ptmt.setString(2, packageId);
             ptmt.setString(3, comment);
             ptmt.setDate(4, new Date(System.currentTimeMillis()));
             ptmt.execute();
-            response.getWriter().print("ok");
+
+            String json = JSON.toJSONString(new CallBack(Constant.successCode, "评论成功！"));
+            response.getWriter().print(json);
             L.d("执行commitComment...成功");
         } catch (SQLException e) {
             e.printStackTrace();
-            response.getWriter().print(e.getMessage());
+            String json = JSON.toJSONString(new CallBack(Constant.failureCode, e.getMessage()));
+            response.getWriter().print(json);
             L.d("执行commitComment...失败："+e.getMessage());
         }
     }

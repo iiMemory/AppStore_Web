@@ -1,7 +1,3 @@
-function login() {
-    window.location.href='../web/login.html';
-}
-
 function load() {
     loadAppList();
 }

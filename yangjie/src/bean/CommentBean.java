@@ -5,7 +5,7 @@ public class CommentBean {
     private String id;
     private String comment; // 评论
     private String packageId; // 包名
-    private String userId; // 用户id
+    private String userName; // 用户名字
     private String time; // 评论时间
 
     public String getId() {
@@ -32,12 +32,12 @@ public class CommentBean {
         this.packageId = packageId;
     }
 
-    public String getUserId() {
-        return userId;
+    public String getUserName() {
+        return userName;
     }
 
-    public void setUserId(String userId) {
-        this.userId = userId;
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 
     public String getTime() {
