@@ -67,7 +67,7 @@ function getCommentList() {
             var length = data.length;
             var str = "";
             for (var i = 0; i < length; i++) {
-                var userName = data[i].userId;
+                var userName = data[i].userName;
                 var comment = data[i].comment;
                 var date = data[i].time;
                 str += "<div class=\"comment_div\">\n" +
@@ -106,10 +106,13 @@ function commitComment() {
             action:"commitComment",
             packageId:packageId
         },
-        dataType:'text',    //返回的数据格式：json/xml/html/script/jsonp/text
+        dataType:'json',    //返回的数据格式：json/xml/html/script/jsonp/text
         success:function(data,textStatus,jqXHR) {//data是成功后，接收的返回值
-          alert(data);
-          loadInfo();
+          var code = data.code;
+          if (code == 200) {
+              loadInfo();
+          }
+          alert(data.msg);
         },
         error:function (data,textStatus,jqXHR) {
             alert(data);

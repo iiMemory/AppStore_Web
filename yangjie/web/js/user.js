@@ -1,7 +1,9 @@
+// 跳转到登录页
 function login() {
     window.location.href='../web/login.html';
 }
 
+// 读取登录信息
 function loadUser() {
     $.ajax({
         url:'SessionServlet',
@@ -18,12 +20,15 @@ function loadUser() {
                 var div_user = $("#div_user").css("display", "block");
                 var login = $("#login").css("display", "none");
                 var user = $("#user");
+                if (data == "admin") {
+                    var upload = $("#upload").css("display", "block");
+                }
                 user.html(data + " ，已登录");
             }
         }
     });
 }
-
+// 登出
 function exit() {
     $.ajax({
         url:'SessionServlet',
@@ -40,4 +45,10 @@ function exit() {
                 var login = $("#login").css("display", "block");
         }
     });
+}
+
+// 上传页
+function upLoad() {
+    window.location.href='../web/upload.html';
+
 }
