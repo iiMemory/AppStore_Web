@@ -1,5 +1,6 @@
 package servlet;
 
+import db.DButil;
 import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
@@ -13,6 +14,9 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.util.List;
 
 // 上传
@@ -24,8 +28,14 @@ public class UploadServlet extends HttpServlet {
 
     // 上传
     private void upload(HttpServletRequest request) {
+        String packageId = null;
+        String name = null;
+        String fileName = null;
+        String describe = null;
+
         //得到上传文件的保存目录，将上传的文件存放于WEB-INF目录下，不允许外界直接访问，保证上传文件的安全
-        String savePath = this.getServletContext().getRealPath("/WEB-INF/upload");
+//        String savePath = this.getServletContext().getRealPath("/WEB-INF/upload");
+        String savePath = this.getServletContext().getRealPath("/upload");
         File file = new File(savePath);
         //判断上传文件的保存目录是否存在
         if (!file.exists() && !file.isDirectory()) {
@@ -54,11 +64,22 @@ public class UploadServlet extends HttpServlet {
             for (FileItem item : list) {
                 //如果fileitem中封装的是普通输入项的数据
                 if (item.isFormField()) {
-                    String name = item.getFieldName();
+                    String fieldName = item.getFieldName();
                     //解决普通输入项的数据的中文乱码问题
                     String value = item.getString("UTF-8");
                     //value = new String(value.getBytes("iso8859-1"),"UTF-8");
-                    System.out.println(name + "=" + value);
+                    System.out.println(fieldName + "=" + value);
+
+                    if (fieldName.equals("packageId")) {
+                        packageId = value;
+                    }
+                    if (fieldName.equals("name")) {
+                        name = value;
+                    }
+                    if (fieldName.equals("describe")) {
+                        describe = value;
+                    }
+
                 } else {//如果fileitem中封装的是上传文件
                     //得到上传的文件名称，
                     String filename = item.getName();
@@ -69,6 +90,7 @@ public class UploadServlet extends HttpServlet {
                     //注意：不同的浏览器提交的文件名是不一样的，有些浏览器提交上来的文件名是带有路径的，如：  c:\a\b\1.txt，而有些只是单纯的文件名，如：1.txt
                     //处理获取到的上传文件的文件名的路径部分，只保留文件名部分
                     filename = filename.substring(filename.lastIndexOf("\\") + 1);
+                    fileName = filename;
                     //获取item中的上传文件的输入流
                     InputStream in = item.getInputStream();
                     //创建一个文件输出流
@@ -91,8 +113,11 @@ public class UploadServlet extends HttpServlet {
                     message = "文件上传成功！";
                 }
             }
+            // 将上传的文件信息插入数据库中
+            insertAppInfo(packageId, name, fileName, describe);
         } catch (Exception e) {
             message = "文件上传失败！";
+
             e.printStackTrace();
 
         } finally {
@@ -100,7 +125,42 @@ public class UploadServlet extends HttpServlet {
         }
     }
 
+    /**
+     *
+     * @param packageId 包名
+     * @param name app名
+     * @param fileName 文件名
+     * @param describe app描述
+     * @return
+     */
+    // 将上传的文件信息插入数据库中
+    private boolean insertAppInfo(String packageId, String name, String fileName, String describe) {
+        L.d("开始执行insertAppInfo...");
+        // 从数据库获取app信息
+        Connection conn = DButil.getConnection();
+        try {
+            String sql = "insert  into  appInfo(packageId, name, fileName, describes) values (?,?,?,?)";
+            PreparedStatement ptmt =  (PreparedStatement) conn.prepareStatement(sql);
+            ptmt.setString(1,packageId);
+            ptmt.setString(2,name);
+            ptmt.setString(3,fileName);
+            ptmt.setString(4,describe);
+            ptmt.execute();
+            L.d("执行insertAppInfo...成功");
+            return true;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            L.d("执行insertAppInfo...失败："+e.getMessage());
+        }
+        return false;
+    }
+
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         doPost(request, response);
+    }
+
+    private interface IUploadListener{
+        void onSuccess();
+        void onFailure();
     }
 }

@@ -24,8 +24,9 @@ function loadAppList() {
                 if (i-1%column == 0) {
                     str += "<tr>";
                 }
-                var dd = data[i-1].packageId;
-                str += "<td class='item_app' onclick=clickAppItem("+dd+")></td>";
+                var packageId = data[i-1].packageId;
+                var fileNmae = data[i-1].fileName;
+                str += "<td class='item_app' onclick=clickAppItem("+packageId+")><a href=\"/upload/"+fileNmae+"\">下载</a></td>";
 
                 if (i%column == 0) {
                     str += "</tr>";
@@ -38,5 +39,5 @@ function loadAppList() {
 
 // 点击app列表，跳转到详情界面
 function clickAppItem(param) {
-    window.location.href='../web/appInfo.html?packageId='+param;
+    window.location.href='../appInfo.html?packageId='+param;
 }

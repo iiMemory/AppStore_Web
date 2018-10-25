@@ -5,7 +5,8 @@ public class AppBean {
     private String name;// 名字
     private String downloadUrl;// 下载地址
     private String logoUrl;// 图标地址
-    private String describe; // 描述
+    private String describes; // 描述
+    private String fileName;// 文件名
 
 
     public String getPackageId() {
@@ -40,11 +41,19 @@ public class AppBean {
         this.logoUrl = logoUrl;
     }
 
-    public String getDescribe() {
-        return describe;
+    public String getDescribes() {
+        return describes;
     }
 
-    public void setDescribe(String describe) {
-        this.describe = describe;
+    public void setDescribes(String describes) {
+        this.describes = describes;
+    }
+
+    public String getFileName() {
+        return fileName;
+    }
+
+    public void setFileName(String fileName) {
+        this.fileName = fileName;
     }
 }

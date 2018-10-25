@@ -54,6 +54,7 @@ public class MainServlet extends HttpServlet {
                 bean.setName(rs.getString("name"));
                 bean.setDownloadUrl(rs.getString("downloadUrl"));
                 bean.setLogoUrl(rs.getString("logoUrl"));
+                bean.setFileName(rs.getString("fileName"));
                 list.add(bean);
             }
             // 对象转json

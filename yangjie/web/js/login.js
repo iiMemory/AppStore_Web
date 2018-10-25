@@ -14,7 +14,7 @@ function login() {
         dataType:'text',    //返回的数据格式：json/xml/html/script/jsonp/text
         success:function(data,textStatus,jqXHR) {//data是成功后，接收的返回值
             if (data == "200") {
-                window.location.href='../web/index.html';
+                window.location.href='../index.html';
             } else {
                 alert(data);
             }

@@ -1,6 +1,6 @@
 // 跳转到登录页
 function login() {
-    window.location.href='../web/login.html';
+    window.location.href='../login.html';
 }
 
 // 读取登录信息
@@ -49,6 +49,6 @@ function exit() {
 
 // 上传页
 function upLoad() {
-    window.location.href='../web/upload.html';
+    window.location.href='../upload.jsp';
 
 }
