@@ -2,18 +2,22 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <link rel="stylesheet" href="css/login.css" media="screen" type="text/css" />
-    <script type="text/javascript" src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script type="text/javascript" src="js/jquery-3.1.1.min.js"></script>
     <script type="text/javascript" src="js/login.js"></script>
     <title>登录</title>
 </head>
 <body>
 <div id="login">
+    <div>
 <table cellspacing="2" id="login_table">
     <tr id="login_user"><td><span>用户名：</span></td><td><input type="text" id="input_user"></td></tr>
     <tr id="login_psw"><td><span>密码：</span></td><td><input type="text" id="input_psw"></td></tr>
-    <tr><td><button id="btn_login" onclick="login()">登录/注册</button></td></tr>
-    <tr><td><p id="tip">若没有注册，则直接注册后登录！</p></td></tr>
 </table>
+    </div>
+    <div id="login_btn">
+        <button id="btn_login" onclick="login()">登录/注册</button>
+        <p id="tip">若没有注册，则直接注册后登录！</p>
+    </div>
 </div>
 </body>
 </html>

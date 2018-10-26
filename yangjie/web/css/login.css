@@ -3,21 +3,57 @@ body,html,div {
     margin: 0;
     height: 100%;
 }
-
-#login {
-    padding: 20px;
-    width: 100%;
-    height: 100%;
+body {
     display: flex;
     justify-content: center;
     align-items: center;
 }
+#login {
+    padding: 20px;
+    width: 600px;
+    height: 400px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    border:1px solid #c0c0c0;
+    border-radius: 4px;
+}
 
 #login_table {
-    border:1px solid #000;
+    width: 400px;
+    height: 250px;
 }
 
 #tip {
     size: 10px;
     color: darkgray;
+}
+span {
+    width: 100%;
+    display: inline-block;
+    font-size: 20px;
+    text-align: center;
+}
+
+td {
+    width: 200px;
+}
+
+#btn_login {
+    width: 100px;
+    height: 40px;
+    background-color: white;
+    color: #333333;
+    margin-right: 20px;
+    border-radius: 4px;
+    font-size: 15px;
+}
+
+#login_btn {
+    border-top:1px solid #c0c0c0;
+    display: flex;
+    justify-content: center;
+    margin-top: 25px;
+    padding-top: 25px;
 }

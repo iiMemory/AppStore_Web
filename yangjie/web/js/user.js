@@ -43,6 +43,7 @@ function exit() {
             // json转实体
                 var div_user = $("#div_user").css("display", "none");
                 var login = $("#login").css("display", "block");
+                var upload = $("#upload").css("display", "none");
         }
     });
 }
