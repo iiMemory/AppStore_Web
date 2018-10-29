@@ -32,16 +32,22 @@ function showResponse(responseText, statusText, xhr, $form){
 
 // 检查输入框内容合法性
 function validate(formData, jqForm, options) {
-    var file = $('#file').val();
+    var file = $('#fileName').val();
     var packageId = $('#packageId').val();
     var name = $('#name').val();
     var describe = $('#describe').val();
+    var logoName =  $('#logoName').val();
     if (!$.trim(file)) {
         alert("请选择要上传的文件！")
         return false;
     }
     if (!$.trim(packageId)) {
         alert("请输入应用包名！");
+        return false;
+    }
+
+    if (!$.trim(logoName)) {
+        alert("请选择应用图标！");
         return false;
     }
     if (!$.trim(name)) {
@@ -53,4 +59,32 @@ function validate(formData, jqForm, options) {
         return false;
     }
     return true;
+}
+
+
+// 预览
+function imgPreview(fileDom, id){
+    //判断是否支持FileReader
+    if (window.FileReader) {
+        var reader = new FileReader();
+    } else {
+        alert("您的设备不支持图片预览功能，如需该功能请升级您的设备！");
+    }
+
+    //获取文件
+    var file = fileDom.files[0];
+    var imageType = /^image\//;
+    //是否是图片
+    if (!imageType.test(file.type)) {
+        alert("请选择图片！");
+        return;
+    }
+    //读取完成
+    reader.onload = function(e) {
+        //获取图片dom
+        var img = document.getElementById(id);
+        //图片路径设置为读取的图片
+        img.src = e.target.result;
+    };
+    reader.readAsDataURL(file);
 }

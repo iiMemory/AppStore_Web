@@ -19,7 +19,7 @@
 </div>
 <div id="div_upload">
 <form id="form_upload" name="upload" action="UploadServlet" enctype="multipart/form-data" method="post">
-    <div><input id="file" name="file" type="file" accept=".apk" /></div>
+    <div><input id="fileName" name="fileName" type="file" accept=".apk" />选择apk文件</div>
     <div id="div_table">
     <table>
         <tbody>
@@ -27,15 +27,33 @@
             <!--正则、只能输入数字、英文、小数点-->
             <input type="text" id="packageId" name="packageId"  onkeyup="value=value.replace(/[^\w\.\/]/ig,'')"/>
         </td></tr>
+        <tr><td><img id="img_logo"/></td><td><input id="logoName" name="logoName" type="file" accept=".jpg,.jpeg,.png" onchange="imgPreview(this, 'img_logo')"/>选择应用图标</td></tr>
         <tr><td>应用名字：</td><td><input type="text" id="name" name="name"/></td></tr>
         <tr><td>应用描述：</td><td><textarea  id="describe" name="describe"></textarea></td></tr>
         </tbody>
     </table>
     </div>
-    <div><button type="submit" id="submit">提交</button></div>
+    <div id="div_select_pic">
+    <div><input id="screenShotPicName_1" name="screenShotPicName_1" type="file" accept=".jpg,.jpeg,.png" onchange="imgPreview(this, 'preview_1')"/>选择图片（1）</div>
+    <div><input id="screenShotPicName_2" name="screenShotPicName_2" type="file" accept=".jpg,.jpeg,.png" onchange="imgPreview(this, 'preview_2')"/>选择图片（2）</div>
+    <div><input id="screenShotPicName_3" name="screenShotPicName_3" type="file" accept=".jpg,.jpeg,.png" onchange="imgPreview(this, 'preview_3')"/>选择图片（3）</div>
+    </div>
+    <div id="div_screenshot"><h3>应用截图</h3></div>
+    <div id="div_preview">
+        <img id="preview_1" />
+        <img id="preview_2" />
+        <img id="preview_3" />
+    </div>
 
+    <div><button type="submit" id="submit">提交</button></div>
 </form>
+
+
 </div>
 </body>
+
+<script>
+
+</script>
 </html>
 
