@@ -2,6 +2,16 @@ function login() {
     var name = $("#input_user").val();
     var psw = $("#input_psw").val();
 
+    if (!$.trim(name)) {
+        alert("请输入用户名!")
+        return;
+    }
+
+    if (!$.trim(psw)) {
+        alert("请输入密码!")
+        return;
+    }
+
     $.ajax({
         url:'LoginServlet',
         type:'POST', //GET

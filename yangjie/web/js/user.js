@@ -50,6 +50,6 @@ function exit() {
 
 // 上传页
 function upLoad() {
-    window.location.href='../upload.jsp';
+    window.location.href='../upload.html';
 
 }

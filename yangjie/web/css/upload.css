@@ -1,0 +1,51 @@
+body,html,div {
+    padding: 0;
+    margin: 0;
+}
+body,html {
+    height: 100%;
+}
+#div_upload {
+    height: 90%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#form_upload {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    width: 600px;
+    height: 400px;
+    border:1px solid #c0c0c0;
+    border-radius: 4px;
+}
+
+#form_upload div {
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    padding: 10px;
+}
+
+#packageId,#name {
+    height: 20px;
+}
+
+
+#form_upload #div_describe, #describe {
+    height: 70px;
+}
+
+#submit {
+    width: 80px;
+    height: 40px;
+    background-color: white;
+    color: #333333;
+    border-radius: 4px;
+}
+
+#form_upload #div_table {
+    height: 140px;
+}

@@ -31,7 +31,7 @@ function getAppInfo() {
             var str = "";
             var packageId = data.packageId;
             var name = data.name;
-            var describe = data.describe;
+            var describe = data.describes;
              str+= "<p>应用包名:"+packageId+"</p>";
              str+= "<p>应用名称:"+name+"</p>";
              str+= "<p>应用简介:"+describe+"</p>";

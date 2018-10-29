@@ -57,7 +57,7 @@ public class AppInfoServlet extends HttpServlet {
         // 从数据库获取app信息
         Connection conn = DButil.getConnection();
         try {
-            String sql = "select * from appInfo where packageId = "+packageId;
+            String sql = "select * from appInfo where packageId = '" + packageId + "'";
             PreparedStatement ptmt =  (PreparedStatement) conn.prepareStatement(sql);
             ResultSet rs = ptmt.executeQuery();
             rs.next();
@@ -67,7 +67,7 @@ public class AppInfoServlet extends HttpServlet {
                 bean.setName(rs.getString("name"));
                 bean.setDownloadUrl(rs.getString("downloadUrl"));
                 bean.setLogoUrl(rs.getString("logoUrl"));
-                bean.setDescribes(rs.getString("describe"));
+                bean.setDescribes(rs.getString("describes"));
                 bean.setFileName(rs.getString("fileName"));
             // 对象转json
             String json = JSON.toJSONString(bean);
@@ -85,7 +85,7 @@ public class AppInfoServlet extends HttpServlet {
         // 从数据库获取app信息
         Connection conn = DButil.getConnection();
         try {
-            String sql = "select * from comment where packageId = "+packageId +" limit "+(page-1)*10+",10" ;
+            String sql = "select * from comment where packageId = '"+packageId +"' limit "+(page-1)*10+",10" ;
             PreparedStatement ptmt =  (PreparedStatement) conn.prepareStatement(sql);
             ResultSet rs = ptmt.executeQuery();
             List<CommentBean> list = new ArrayList<>(10);

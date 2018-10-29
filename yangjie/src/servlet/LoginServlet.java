@@ -72,7 +72,7 @@ public class LoginServlet extends HttpServlet {
         // 从数据库获取app信息
         Connection conn = DButil.getConnection();
         try {
-            String sql = "select * from user where name = "+userName;
+            String sql = "select * from user where name = '"+userName+"'";
             PreparedStatement ptmt =  (PreparedStatement) conn.prepareStatement(sql);
             ResultSet rs = ptmt.executeQuery();
             if (rs.next()) {
@@ -92,7 +92,7 @@ public class LoginServlet extends HttpServlet {
         // 从数据库获取app信息
         Connection conn = DButil.getConnection();
         try {
-            String sql = "select password from user where name = "+userName;
+            String sql = "select password from user where name = '"+userName+"'";
             PreparedStatement ptmt =  (PreparedStatement) conn.prepareStatement(sql);
             ResultSet rs = ptmt.executeQuery();
             if (!rs.next()) {

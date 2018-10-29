@@ -4,6 +4,7 @@ import db.DButil;
 import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
+import util.Constant;
 import util.L;
 
 import javax.servlet.ServletException;
@@ -23,11 +24,11 @@ import java.util.List;
 public class UploadServlet extends HttpServlet {
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        upload(request);
+        upload(request, response);
     }
 
     // 上传
-    private void upload(HttpServletRequest request) {
+    private void upload(HttpServletRequest request, HttpServletResponse response) {
         String packageId = null;
         String name = null;
         String fileName = null;
@@ -114,12 +115,10 @@ public class UploadServlet extends HttpServlet {
                 }
             }
             // 将上传的文件信息插入数据库中
-            insertAppInfo(packageId, name, fileName, describe);
+            insertAppInfo(packageId, name, fileName, describe, response);
         } catch (Exception e) {
             message = "文件上传失败！";
-
             e.printStackTrace();
-
         } finally {
             L.d(message);
         }
@@ -134,7 +133,7 @@ public class UploadServlet extends HttpServlet {
      * @return
      */
     // 将上传的文件信息插入数据库中
-    private boolean insertAppInfo(String packageId, String name, String fileName, String describe) {
+    private boolean insertAppInfo(String packageId, String name, String fileName, String describe, HttpServletResponse response) throws IOException{
         L.d("开始执行insertAppInfo...");
         // 从数据库获取app信息
         Connection conn = DButil.getConnection();
@@ -147,10 +146,13 @@ public class UploadServlet extends HttpServlet {
             ptmt.setString(4,describe);
             ptmt.execute();
             L.d("执行insertAppInfo...成功");
+            // 成功回调
+            response.getWriter().print(Constant.successCode);
             return true;
         } catch (SQLException e) {
             e.printStackTrace();
             L.d("执行insertAppInfo...失败："+e.getMessage());
+            response.getWriter().print(e.getMessage());
         }
         return false;
     }
