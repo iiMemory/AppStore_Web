@@ -29,7 +29,7 @@ function loadAppList() {
                 var name = data[i-1].name;
                 var logoPicName = data[i-1].logoPicName;
                 var upload = "/upload/";
-                str += "<td  onclick=clickAppItem(\""+packageId+"\")><div class='item_app' style='background: url("+upload+""+logoPicName+");background-size: contain'></div><br><span class='text_name'>"+name+"</span><br><a class='text_download' href=\"/upload/"+fileNmae+"\">下载</a></td>";
+                str += "<td  onclick=clickAppItem(\""+packageId+"\")><div class='item_app' style='background: url("+upload+""+logoPicName+");background-size: contain;background-repeat: no-repeat'></div><br><span class='text_name'>"+name+"</span><br><a class='text_download' href=\"/upload/"+fileNmae+"\">下载</a></td>";
 
                 if (i%column == 0) {
                     str += "</tr>";
