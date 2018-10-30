@@ -69,6 +69,10 @@ public class AppInfoServlet extends HttpServlet {
                 bean.setLogoUrl(rs.getString("logoUrl"));
                 bean.setDescribes(rs.getString("describes"));
                 bean.setFileName(rs.getString("fileName"));
+                bean.setLogoPicName(rs.getString("logoPicName"));
+                bean.setScreenShotPicName_1(rs.getString("screenShotPicName_1"));
+                bean.setScreenShotPicName_2(rs.getString("screenShotPicName_2"));
+                bean.setScreenShotPicName_3(rs.getString("screenShotPicName_3"));
             // 对象转json
             String json = JSON.toJSONString(bean);
             response.getWriter().print(json);

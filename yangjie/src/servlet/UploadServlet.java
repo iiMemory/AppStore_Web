@@ -102,23 +102,23 @@ public class UploadServlet extends HttpServlet {
                     String fieldName = item.getFieldName();
                     String stamp = CommonUtil.getStampTime();
                     if (fieldName.equals("fileName")) {
-                        fName = stamp+"_"+tempName;
+                        fName = stamp+"_fileName_"+tempName;
                         fileName = fName;
                     }
                     if (fieldName.equals("logoName")) {
-                        fName = stamp+"logoName";
+                        fName = stamp+"_logoName_"+tempName;
                         logoPicName = fName;
                     }
                     if (fieldName.equals("screenShotPicName_1")) {
-                        fName = stamp+"screenShotPicName_1";
+                        fName = stamp+"_screenShotPicName_1_"+tempName;
                         screenShotPicName_1 = fName;
                     }
                     if (fieldName.equals("screenShotPicName_2")) {
-                        fName = stamp+"screenShotPicName_2";
+                        fName = stamp+"_screenShotPicName_2_"+tempName;
                         screenShotPicName_2 = fName;
                     }
                     if (fieldName.equals("screenShotPicName_3")) {
-                        fName = stamp+"screenShotPicName_3";
+                        fName = stamp+"_screenShotPicName_3_"+tempName;
                         screenShotPicName_3 = fName;
                     }
 

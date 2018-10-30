@@ -37,6 +37,9 @@ function validate(formData, jqForm, options) {
     var name = $('#name').val();
     var describe = $('#describe').val();
     var logoName =  $('#logoName').val();
+    var screenShotPicName_1 =  $('#screenShotPicName_1').val();
+    var screenShotPicName_2 =  $('#screenShotPicName_2').val();
+    var screenShotPicName_3 =  $('#screenShotPicName_3').val();
     if (!$.trim(file)) {
         alert("请选择要上传的文件！")
         return false;
@@ -56,6 +59,12 @@ function validate(formData, jqForm, options) {
     }
     if (!$.trim(describe)) {
         alert("请输入应用描述！");
+        return false;
+    }
+
+    // 至少上传1张应用截图
+    if (!$.trim(screenShotPicName_1) && !$.trim(screenShotPicName_2) && !$.trim(screenShotPicName_3) ) {
+        alert("至少上传1张应用截图！");
         return false;
     }
     return true;

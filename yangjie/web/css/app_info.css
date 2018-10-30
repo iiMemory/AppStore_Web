@@ -4,8 +4,9 @@ body,html,div {
 }
 
 #app_info{
-    margin: 20px;
-    height: 300px;
+    margin-left: 80px;
+    margin-top: 100px;
+    height: 500px;
     /*background: beige;*/
     display: flex;
     flex-direction:row;
@@ -17,10 +18,15 @@ body,html,div {
 }
 
 #app_info_data {
-    margin-left: 20px;
-    width: 300px;
-    height: 400px;
-    /*background: cadetblue;*/
+    margin-left: 50px;
+    width: 800px;
+    height: 500px;
+    font-size: 18px;
+}
+
+#app_info #app_info_data p {
+    padding: 0px;
+    margin: 0px 0px 30px 0px;
 }
 
 #comment_list {
@@ -77,13 +83,47 @@ body,html,div {
 
 #title_comment{
     margin-top: 10px;
-    padding-top: 20px;
     margin-left: 20px;
 }
 
-#line {
+#title_screenshot{
+    margin-top: 10px;
+    margin-left: 20px;
+}
+
+.line {
     background-color: #c0c0c0;
     height: 1px;
     margin-left: 20px;
     margin-right: 20px;
+}
+
+#screenshot_pic_list {
+    display: flex;
+    margin-top: 20px;
+    margin-left: 20px;
+}
+
+#screenshot_pic_list img {
+    margin-left: 10px;
+    margin-right: 10px;
+    width: 320px;
+    height: 480px;
+}
+
+#download {
+    width: 80px;
+    height: 25px;
+    background-color: white;
+    color: #333333;
+    border: 1px solid #c0c0c0;
+    border-radius: 4px;
+    display: block;
+    text-align: center;
+    text-decoration: none;
+}
+
+#describe {
+    font-size: 16px;
+    color: #999999;
 }

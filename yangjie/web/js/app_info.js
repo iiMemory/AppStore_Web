@@ -32,11 +32,38 @@ function getAppInfo() {
             var packageId = data.packageId;
             var name = data.name;
             var describe = data.describes;
-             str+= "<p>应用包名:"+packageId+"</p>";
-             str+= "<p>应用名称:"+name+"</p>";
-             str+= "<p>应用简介:"+describe+"</p>";
-             str+= "<button type=\"button\">下载</button>";
+            var fileName = data.fileName;
+             str+= "<p>应用包名:  "+packageId+"</p>";
+             str+= "<p>应用名称:  "+name+"</p>";
+             str+= "<p>应用简介:</p><p id='describe'>"+describe+"</p>";
+             str+= "<a id='download' href=\"/upload/"+fileName+"\">下载</a>";
             app_info_data.html(str);
+
+            //    应用截图
+            var screenshot_pic_list = $("#screenshot_pic_list");
+            var ht = "";
+            screenshot_pic_list.html("");
+            var screenshot_pic_1 = data.screenShotPicName_1;
+            var screenshot_pic_2 = data.screenShotPicName_2;
+            var screenshot_pic_3 = data.screenShotPicName_3;
+            ht += "<div>";
+            if ($.trim(screenshot_pic_1)) {
+                ht += "<img src=\"/upload/"+screenshot_pic_1+"\" />";
+            }
+            if ($.trim(screenshot_pic_2)) {
+                ht += "<img src=\"/upload/"+screenshot_pic_2+"\" />";
+            }
+            if ($.trim(screenshot_pic_3)) {
+                ht += "<img src=\"/upload/"+screenshot_pic_3+"\" />";
+            }
+            ht += "</div>";
+            screenshot_pic_list.html(ht);
+
+            // 应用图标
+            var img_logo = $("#img_app");
+            var logo = data.logoPicName;
+            img_logo.attr("src","/upload/"+logo+"");
+            // img_logo.src = "/upload/"+logo+"";
         }
     });
 }
