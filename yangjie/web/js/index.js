@@ -27,7 +27,9 @@ function loadAppList() {
                 var packageId = data[i-1].packageId;
                 var fileNmae = data[i-1].fileName;
                 var name = data[i-1].name;
-                str += "<td  onclick=clickAppItem(\""+packageId+"\")><div class='item_app'><a class='text_download' href=\"/upload/"+fileNmae+"\">下载</a><br><span class='text_name'>"+name+"</span></div></td>";
+                var logoPicName = data[i-1].logoPicName;
+                var upload = "/upload/";
+                str += "<td  onclick=clickAppItem(\""+packageId+"\")><div class='item_app' style='background: url("+upload+""+logoPicName+");background-size: contain'></div><br><span class='text_name'>"+name+"</span><br><a class='text_download' href=\"/upload/"+fileNmae+"\">下载</a></td>";
 
                 if (i%column == 0) {
                     str += "</tr>";

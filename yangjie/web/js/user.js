@@ -44,6 +44,8 @@ function exit() {
                 var div_user = $("#div_user").css("display", "none");
                 var login = $("#login").css("display", "block");
                 var upload = $("#upload").css("display", "none");
+                // 回到首页
+                home();
         }
     });
 }
@@ -52,4 +54,9 @@ function exit() {
 function upLoad() {
     window.location.href='../upload.html';
 
+}
+
+// 回到首页
+function home() {
+    window.location.href='../index.html';
 }

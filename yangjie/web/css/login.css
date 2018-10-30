@@ -3,12 +3,14 @@ body,html,div {
     margin: 0;
     height: 100%;
 }
-body {
+#div_bg{
+    height: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
 }
-#login {
+
+#login_content {
     padding: 20px;
     width: 600px;
     height: 400px;

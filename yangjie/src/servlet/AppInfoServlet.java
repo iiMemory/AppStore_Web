@@ -15,6 +15,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.sql.*;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -118,13 +119,15 @@ public class AppInfoServlet extends HttpServlet {
         L.d("开始执行commitComment...");
         // 从数据库获取app信息
         Connection conn = DButil.getConnection();
+        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//设置日期格式
+        String time = df.format(new java.util.Date());
         try {
             String sql = "insert into comment(userName, packageId, comment, time) values(?,?,?,?) ";
             PreparedStatement ptmt =  (PreparedStatement) conn.prepareStatement(sql);
             ptmt.setString(1, userName);
             ptmt.setString(2, packageId);
             ptmt.setString(3, comment);
-            ptmt.setDate(4, new Date(System.currentTimeMillis()));
+            ptmt.setString(4, time);
             ptmt.execute();
 
             String json = JSON.toJSONString(new CallBack(Constant.successCode, "评论成功！"));

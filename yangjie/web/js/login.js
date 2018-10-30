@@ -1,4 +1,4 @@
-function login() {
+function btnLogin() {
     var name = $("#input_user").val();
     var psw = $("#input_psw").val();
 

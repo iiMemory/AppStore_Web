@@ -13,9 +13,12 @@
 </head>
 <body onload="loadUser()">
 <div id="navigation">
-    <button type="button" id="upload" onclick="upLoad()">上传</button>
-    <div id="div_user"><span id="user"></span><button id="exit" type="button" onclick="exit()">退出</button></div>
-    <button type="button" id="login" onclick="login()">登录</button>
+    <div id="logo" onclick="home()"><img src="/image/logo.png"></div>
+    <div id="div_login">
+        <button type="button" id="upload" onclick="upLoad()">上传</button>
+        <div id="div_user"><span id="user"></span><button id="exit" type="button" onclick="exit()">退出</button></div>
+        <button type="button" id="login" onclick="login()">登录</button>
+    </div>
 </div>
 <div id="div_upload">
 <form id="form_upload" name="upload" action="UploadServlet" enctype="multipart/form-data" method="post">

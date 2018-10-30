@@ -3,9 +3,13 @@
     height: 75px;
     background-color: #333333;
     display: flex;
-    justify-content: flex-end;
+    justify-content: space-between;
 }
 
+#div_login {
+    display: flex;
+    justify-content: flex-end;
+}
 
 #login {
     display: block;
@@ -43,6 +47,13 @@
     color: #333333;
     border-radius: 4px;
     margin-left: 20px;
+}
+
+#logo {
+    width: 320px;
+    margin-left: 20px;
+    margin-top: 5px;
+    cursor:pointer;
 }
 
 
