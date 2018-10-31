@@ -5,6 +5,10 @@ public class User {
     private String password;
     private String nickName;// 昵称
 
+    public User(String name) {
+        this.name = name;
+    }
+
     public User(String name, String password) {
         this.name = name;
         this.password = password;
