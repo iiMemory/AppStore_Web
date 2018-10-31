@@ -1,7 +1,7 @@
 # AppStore_Web
 
 
-RESTful风格接口文档地址：https://www.showdoc.cc/yjstore
+#RESTful 风格API接口文档地址：https://www.showdoc.cc/yjstore
 
 
 
