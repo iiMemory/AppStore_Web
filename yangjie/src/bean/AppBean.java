@@ -12,6 +12,11 @@ public class AppBean {
     private String screenShotPicName_2;// 截图名字
     private String screenShotPicName_3;// 截图名字
 
+//     todo 到时候上传路径要改为用统一变量的方式（/upload）, 这里待用
+    private String screenShotPicName_1_Url;// 截图地址
+    private String screenShotPicName_2_Url;// 截图地址
+    private String screenShotPicName_3_Url;// 截图地址
+
     public String getPackageId() {
         return packageId;
     }
