@@ -7,6 +7,7 @@ import bean.MobileAppItem;
 import com.alibaba.fastjson.JSON;
 import db.DButil;
 import util.Constant;
+import util.JavaWebTokenUtil;
 import util.L;
 
 import javax.ws.rs.*;
@@ -17,7 +18,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Path("app")
 public class AppApi {
@@ -145,11 +148,18 @@ public class AppApi {
     @Path("/comment")
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes("application/x-www-form-urlencoded")
-    public String comment(@FormParam("packageId") String packageId, @FormParam("userName") String userName, @FormParam("comment") String comment) {
+    public String comment(@FormParam("packageId") String packageId, @FormParam("token") String token, @FormParam("comment") String comment) {
+        BaseResponse response = new BaseResponse<List<CommentBean>>();
+        // 验证有无token（登录）
+        String userName = getUserName(token);
+        if (userName == null) {
+            response.setCode(Code.FAILURE);
+            response.setMsg("token认证失败！");
+            L.d("执行comment...失败：token认证失败！");
+        }
         Connection conn = DButil.getConnection();
         SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//设置日期格式
         String time = df.format(new java.util.Date());
-        BaseResponse response = new BaseResponse<List<CommentBean>>();
         try {
             String sql = "insert into comment(userName, packageId, comment, time) values(?,?,?,?) ";
             PreparedStatement ptmt =  (PreparedStatement) conn.prepareStatement(sql);
@@ -168,6 +178,32 @@ public class AppApi {
             L.d("执行comment...失败："+e.getMessage());
         }
         return JSON.toJSONString(response);
+    }
+
+    /**
+     * 检查token的合法性
+     * @param token
+     * @return
+     */
+    private boolean checkToken(String token) {
+        if(JavaWebTokenUtil.parserJavaWebToken(token) != null){
+            //表示token合法
+             return true;
+             }else{
+             //token不合法或者过期
+             return false;
+             }
+    }
+
+    /**
+     * 检查token的合法性并且获取userName
+     *  返回null，则证明验证不通过！
+     * @param token
+     * @return
+     */
+    private String getUserName(String token) {
+        Map<String,Object> m =  JavaWebTokenUtil.parserJavaWebToken(token);
+        return (String) JavaWebTokenUtil.parserJavaWebToken(token).get("userName");
     }
 
 }

@@ -4,6 +4,7 @@ import bean.BaseResponse;
 import bean.User;
 import com.alibaba.fastjson.JSON;
 import db.DButil;
+import util.JavaWebTokenUtil;
 import util.L;
 
 import javax.ws.rs.*;
@@ -12,6 +13,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.HashMap;
+import java.util.Map;
 
 @Path("user")
 public class UserApi {
@@ -22,7 +25,6 @@ public class UserApi {
      * @param psw 密码
      * @return
      */
-    // todo 登录成功后怎么保存会话？？？
     @POST
     @Path("/login")
     @Produces(MediaType.APPLICATION_JSON)
@@ -37,7 +39,8 @@ public class UserApi {
             if (rs.next()) {
                 response.setCode(Code.SUCCESS);
                 response.setMsg("登录成功");
-                response.setData(new User(userName));
+                String token = createToken(userName);
+                response.setData(new User(userName, token));
             } else {
                 response.setCode(Code.FAILURE);
                 response.setMsg("登录失败");
@@ -51,6 +54,13 @@ public class UserApi {
             L.d("执行login...失败："+e.getMessage());
         }
         return JSON.toJSONString(response);
+    }
+
+    // 创建token
+    private String createToken(@FormParam("userName") String userName) {
+        Map<String,Object> m = new HashMap<String,Object>();
+        m.put("userName", userName); // 唯一值
+        return JavaWebTokenUtil.createJavaWebToken(m);
     }
 
     /**

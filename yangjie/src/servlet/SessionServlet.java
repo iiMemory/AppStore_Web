@@ -16,8 +16,8 @@ public class SessionServlet extends HttpServlet {
         if (action.equals("loadUser")) {
             User user = (User) request.getSession().getAttribute("user");
             if (user != null) {
-                response.getWriter().print(user.getName());
-                L.d(user.getName());
+                response.getWriter().print(user.getUserName());
+                L.d(user.getUserName());
             }
         } else if (action.equals("removeUser")) {
             //1.Session对象删除保存User对象

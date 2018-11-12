@@ -38,7 +38,7 @@ public class AppInfoServlet extends HttpServlet {
             if (user != null) {
                 String packageId = request.getParameter("packageId");
                 String comment = request.getParameter("comment");
-                String userName = user.getName();
+                String userName = user.getUserName();
                 commitComment(userName, packageId, comment, response);
             } else {
                 String json = JSON.toJSONString(new CallBack(Constant.failureCode, "请登录！"));
