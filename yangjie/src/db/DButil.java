@@ -9,7 +9,7 @@ import java.sql.SQLException;
 public class DButil {
 
 //    private static final String URL = "jdbc:mysql://10.8.1.210:3306/yangjie?useUnicode=true&characterEncoding=utf-8";
-private static final String URL = "jdbc:mysql://47.107.166.184:3306/yangjie?useUnicode=true&characterEncoding=utf-8";
+private static final String URL = "jdbc:mysql://47.107.166.184:3306/yangjie?useUnicode=true&characterEncoding=utf-8&autoReconnect=true";
 
     private static final String USER = "root";
     private static final String PASSWORD = "123";
